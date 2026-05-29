@@ -38,68 +38,71 @@ export function Navbar() {
   const solid = scrolled || open;
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
-        solid
-          ? "bg-cream/95 shadow-[0_1px_24px_rgba(42,39,35,0.08)] backdrop-blur"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 sm:px-8">
-        {/* Wordmark / home link */}
-        <a
-          href="#top"
-          aria-label="Heritage Honey — back to top"
-          className="rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
-        >
-          <Wordmark size="sm" tone={solid ? "dark" : "light"} />
-        </a>
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
+          solid
+            ? "bg-cream/95 shadow-[0_1px_24px_rgba(42,39,35,0.08)] backdrop-blur"
+            : "bg-linear-to-b from-black/50 to-transparent"
+        }`}
+      >
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 sm:px-8">
+          {/* Wordmark / home link */}
+          <a
+            href="#top"
+            aria-label="Heritage Honey — back to top"
+            className="rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
+          >
+            <Wordmark size="sm" tone={solid ? "dark" : "light"} />
+          </a>
 
-        {/* Desktop links */}
-        <ul className="hidden items-center gap-8 lg:flex">
-          {LINKS.map((link) => (
-            <li key={link.href}>
+          {/* Desktop links */}
+          <ul className="hidden items-center gap-8 lg:flex">
+            {LINKS.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`font-body text-xs font-semibold uppercase tracking-[0.18em] transition-colors hover:text-terracotta focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta ${
+                    solid ? "text-charcoal" : "text-cream"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li>
               <a
-                href={link.href}
-                className={`font-body text-xs font-semibold uppercase tracking-[0.18em] transition-colors hover:text-terracotta focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta ${
-                  solid ? "text-charcoal" : "text-cream"
-                }`}
+                href="#contact"
+                className="rounded-full bg-terracotta px-6 py-2.5 font-body text-xs font-semibold uppercase tracking-[0.18em] text-cream shadow-sm transition-colors hover:bg-rust focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-charcoal"
               >
-                {link.label}
+                Book Us
               </a>
             </li>
-          ))}
-          <li>
-            <a
-              href="#contact"
-              className="rounded-full bg-terracotta px-6 py-2.5 font-body text-xs font-semibold uppercase tracking-[0.18em] text-cream shadow-sm transition-colors hover:bg-rust focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-charcoal"
-            >
-              Book Us
-            </a>
-          </li>
-        </ul>
+          </ul>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          className={`rounded-sm p-1.5 transition-colors lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta ${
-            solid ? "text-charcoal" : "text-cream"
-          }`}
-        >
-          {open ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
-        </button>
-      </nav>
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            className={`rounded-sm p-1.5 transition-colors lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta ${
+              solid ? "text-charcoal" : "text-cream"
+            }`}
+          >
+            {open ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+          </button>
+        </nav>
+      </header>
 
-      {/* Mobile slide-in menu */}
+      {/* Mobile slide-in menu — rendered outside <header> so backdrop-filter doesn't trap it */}
       <AnimatePresence>
         {open && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-0 top-[60px] z-40 bg-cream lg:hidden"
+            className="fixed inset-x-0 top-15 bottom-0 z-49 overflow-y-auto lg:hidden"
+            style={{ backgroundColor: "#faf6f0" }}
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -16 }}
@@ -150,6 +153,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
