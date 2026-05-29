@@ -64,7 +64,9 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${pinyon.variable} ${montserrat.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-cream text-charcoal">{children}</body>
+      <body className="min-h-full bg-cream text-charcoal">
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
