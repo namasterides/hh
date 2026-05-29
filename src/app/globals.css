@@ -1,26 +1,77 @@
 @import "tailwindcss";
 
+/*
+  Heritage Honey — global theme
+  Tailwind v4 uses CSS-based theming via @theme. Brand tokens defined here
+  become utilities automatically (e.g. bg-terracotta, text-charcoal, font-display).
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --terracotta: #be5028; /* primary */
+  --rust: #9c3f1f; /* hover / dark accent */
+  --cream: #faf6f0; /* page background */
+  --warm-white: #fffdfa; /* cards */
+  --charcoal: #2a2723; /* primary text */
+  --soft-brown: #6b5d52; /* muted text */
+  --honey: #c8954a; /* gold accent */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors -> utilities */
+  --color-terracotta: var(--terracotta);
+  --color-rust: var(--rust);
+  --color-cream: var(--cream);
+  --color-warm-white: var(--warm-white);
+  --color-charcoal: var(--charcoal);
+  --color-soft-brown: var(--soft-brown);
+  --color-honey: var(--honey);
+
+  --color-background: var(--cream);
+  --color-foreground: var(--charcoal);
+
+  /* Fonts (wired to next/font CSS variables in layout.tsx) */
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-script: var(--font-pinyon), cursive;
+  --font-body: var(--font-montserrat), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  /* offset anchored sections so the sticky navbar never covers headings */
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Wide, premium letter-spacing helper used on uppercase labels */
+.tracking-luxe {
+  letter-spacing: 0.28em;
+}
+
+/* Thin terracotta selection */
+::selection {
+  background: var(--terracotta);
+  color: var(--cream);
+}
+
+/* Honor reduced-motion: kill smooth scroll + animation/transition motion.
+   Framer Motion components also branch on useReducedMotion at the JS level. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
