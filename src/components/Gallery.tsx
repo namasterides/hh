@@ -7,11 +7,12 @@ import { SmartImage } from "./SmartImage";
 import { Reveal, RevealItem } from "./Reveal";
 import { Eyebrow, SectionTitle } from "./primitives";
 
-/** Eight gallery dishes. Swap the filenames for real photos later. */
-const DISHES = Array.from({ length: 8 }, (_, i) => ({
-  src: `/images/dish-${i + 1}.jpg`,
-  alt: `Heritage Honey signature dish ${i + 1}`,
-}));
+const DISHES = [
+  { src: "/assets/IMG_2225.jpg", alt: "Heritage Honey signature dish 1" },
+  { src: "/assets/IMG_2226.jpg", alt: "Heritage Honey signature dish 2" },
+  { src: "/assets/IMG_2237.jpg", alt: "Heritage Honey signature dish 3" },
+  { src: "/assets/copy_438FACCC-0C81-4AFD-AF51-EBB7E7B0BB2A.JPEG", alt: "Heritage Honey signature dish 4" },
+];
 
 export function Gallery() {
   const reduce = useReducedMotion();
